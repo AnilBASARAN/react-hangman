@@ -31,6 +31,13 @@
   color: red;
 }
 
+button .Hangman-reset-button{
+  width: 100px;
+  height: 50px;
+  background-color: red;
+  color: black;
+}
+
 
 .Hangman-word {
   letter-spacing: 1em;
@@ -69,4 +76,12 @@
   background: #bdbdbd;
   color: #eeeeee;
   box-shadow: 0 6px #9e9e9e;
+}
+
+#Hangman-reset-button{
+  width: 100px;
+  height: 50px;
+  background-color: red;
+  color: white;
+  font-weight: 900;
 }

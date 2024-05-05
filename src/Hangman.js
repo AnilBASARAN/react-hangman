@@ -35,6 +35,7 @@ class Hangman extends Component {
        };
    
     this.handleGuess = this.handleGuess.bind(this);
+    this.resetGame = this.resetGame.bind(this);
   }
 
   /** guessedWord: show current-state of word:
@@ -58,6 +59,19 @@ class Hangman extends Component {
     });
   }
 
+
+   /** resetGame: reset the game */
+   resetGame() {
+    this.setState({
+      nWrong: 0,
+      nRight: 0,
+      guessed: new Set(),
+      answer: this.props.words[Math.floor(Math.random() * this.props.words.length)].toLowerCase()
+    });
+  }
+
+
+
   /** generateButtons: return array of letter buttons to render */
   generateButtons() {
     return "abcdefghijklmnopqrstuvwxyz".split("").map(ltr => (
@@ -65,7 +79,7 @@ class Hangman extends Component {
         key = {ltr}
         value = {ltr}
         onClick = {this.handleGuess}
-        disabled = {this.state.guessed.has(ltr) || this.state.nWrong > 6 || this.state.nRight >= this.state.answer.length } 
+        disabled = {this.state.guessed.has(ltr) || this.state.nWrong > 6 || this.state.nRight === Array.from([...new Set(this.state.answer)]).length } 
       >
         {ltr}
       </button>
@@ -84,6 +98,9 @@ class Hangman extends Component {
         <p className="Hangman-wrong-time" >{(this.state.nWrong > 6)? `Answer was :${this.state.answer}` : `Wrong guesses : ${this.state.nWrong}` }  </p>
         <p className='Hangman-word'>{this.guessedWord()}</p>
         <p className='Hangman-btns'>{this.generateButtons()}</p>
+        <div>
+        <button id="Hangman-reset-button" onClick={this.resetGame}>Reset Game</button>
+        </div>
       </div>
     );
   }
