@@ -85,7 +85,7 @@ class Hangman extends Component {
 
   checkStatus(){
     let current = true;
-    if (this.state.nWrong == this.props.maxWrong || this.state.nRight === Array.from([...new Set(this.state.answer)]).length) {
+    if (this.state.nWrong === this.props.maxWrong || this.state.nRight === Array.from([...new Set(this.state.answer)]).length) {
       current = false;
       setTimeout(() => {
         this.resetGame(); // Call resetGame after 2 seconds
@@ -118,7 +118,7 @@ class Hangman extends Component {
         key = {ltr}
         value = {ltr}
         onClick = {this.handleGuess}
-        disabled = {this.state.guessed.has(ltr) || this.state.nWrong == this.props.maxWrong || this.state.nRight === Array.from([...new Set(this.state.answer)]).length } 
+        disabled = {this.state.guessed.has(ltr) || !this.state.isGameOn } 
       >
         {ltr}
       </button>
@@ -134,7 +134,7 @@ class Hangman extends Component {
         <img src={this.props.images[this.state.nWrong]} />
        <p>Answer is: {this.state.answer}</p>
        <p className="Hangman-won" >{(this.state.nRight === Array.from([...new Set(this.state.answer)]).length) && `YOU WON`}</p>
-        <p className="Hangman-lost" >{(this.state.nWrong == this.props.maxWrong) && `YOU LOST`}</p>
+        <p className="Hangman-lost" >{(this.state.nWrong === this.props.maxWrong) && `YOU LOST`}</p>
         <p className="Hangman-wrong-time" >{(this.state.nWrong > this.props.maxWrong)? `Answer was :${this.state.answer}` : `Guesses Remaining : ${this.props.maxWrong - this.state.nWrong}` }  </p>
         <p className='Hangman-word'>{this.guessedWord()}</p>
         <p className='Hangman-btns'>{this.generateButtons()}</p>
