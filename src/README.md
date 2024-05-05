@@ -1,0 +1,1 @@
+![Hangman photo](src/README.md)
