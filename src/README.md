@@ -1,2 +1,2 @@
-![Hangman photo](/src/hangman.jpeg)
+![Hangman photo](/hangman.jpeg)
 
