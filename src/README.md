@@ -1,1 +1,2 @@
-![Hangman photo](src/README.md)
+![Hangman photo](/src/hangman.jpeg)
+
