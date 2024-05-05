@@ -29,12 +29,11 @@ class Hangman extends Component {
     this.state = { 
       nWrong: 0,
       nRight: 0,
-       guessed: new Set(),
-        answer: this.props.words[Math.floor(Math.random()*51)].toLowerCase()
+      guessed: new Set(),
+      answer: this.props.words[Math.floor(Math.random()*51)].toLowerCase()
                 
        };
-        
-    this.isGameWon = this.isGameWon.bind(this);
+   
     this.handleGuess = this.handleGuess.bind(this);
   }
 
@@ -42,20 +41,8 @@ class Hangman extends Component {
     if guessed letters are {a,p,e}, show "app_e" for "apple"
   */
 
-    isGameWon(){
-      return 
-    }
-
-    isGameLost(){
-      return this.state.guessed.length >= this.props.maxWrong;
-    }
-
-
   guessedWord() {
-    
-    return this.state.answer
-      .split("")
-      .map(ltr => (this.state.guessed.has(ltr) ? ltr : "_"));
+    return this.state.answer.split("").map(ltr => (this.state.guessed.has(ltr) ? ltr : "_"));
   }
 
   /** handleGuest: handle a guessed letter:
@@ -64,11 +51,11 @@ class Hangman extends Component {
   */
   handleGuess(evt) {
     let ltr = evt.target.value;
-    this.setState(st => ({
-      guessed: st.guessed.add(ltr),
-      nWrong: st.nWrong + (st.answer.includes(ltr) ? 0 : 1),
-      nRight :st.nRight + (st.answer.includes(ltr) ? 1 : 0)
-    }));
+    this.setState({
+      guessed: this.state.guessed.add(ltr),
+      nWrong : this.state.nWrong + (this.state.answer.includes(ltr) ? 0 : 1),
+      nRight : this.state.nRight + (this.state.answer.includes(ltr) ? 1 : 0)
+    });
   }
 
   /** generateButtons: return array of letter buttons to render */
@@ -76,9 +63,9 @@ class Hangman extends Component {
     return "abcdefghijklmnopqrstuvwxyz".split("").map(ltr => (
       <button
         key = {ltr}
-        value={ltr}
-        onClick={this.handleGuess}
-        disabled={this.state.guessed.has(ltr) || this.state.nWrong > 6 || this.state.nRight >= this.state.answer.length } 
+        value = {ltr}
+        onClick = {this.handleGuess}
+        disabled = {this.state.guessed.has(ltr) || this.state.nWrong > 6 || this.state.nRight >= this.state.answer.length } 
       >
         {ltr}
       </button>
@@ -91,11 +78,7 @@ class Hangman extends Component {
       <div className='Hangman'>
         <h1>Hangman</h1>
         <img src={this.props.images[this.state.nWrong]} />
-       
-        
-        
-      
-        <p>This is the Answer: {this.state.answer}</p>
+       <p>This is the Answer: {this.state.answer}</p>
         <p className="Hangman-won" >{(this.state.nRight >= this.state.answer.length) && `YOU WON`}</p>
         <p className="Hangman-lost" >{(this.state.nWrong >= this.props.maxWrong) && `YOU LOST`}</p>
         <p className="Hangman-wrong-time" >{(this.state.nWrong > 6)? `Answer was :${this.state.answer}` : `Wrong guesses : ${this.state.nWrong}` }  </p>
